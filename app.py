@@ -3,7 +3,7 @@ import subprocess
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS
+CORS(app)  # Enable CORS 
 
 @app.route('/scrape', methods=['POST'])
 def run_test_script():

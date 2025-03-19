@@ -396,11 +396,22 @@ google_search(df)
 
 df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
 
-df.drop(columns='Google Search Key', inplace=True)
+# engine = create_engine('mysql+pymysql://root:8287447641@localhost/scraping_db')
 
-engine = create_engine('mysql+pymysql://root:8287447641@localhost/scraping_db')
+# Define your connection credentials
+DB_HOST = "db-mysql-nyc3-25722-do-user-20057036-0.k.db.ondigitalocean.com"
+DB_USER = "doadmin"
+DB_PASSWORD = "AVNS_z5bCFvsK26ykHIDsP2r"
+DB_NAME = "defaultdb"
+DB_PORT = "25060"
+
+# Create a connection string without SSL parameters
+connection_string = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+
+# Connect to the database and push the data
+engine = create_engine(connection_string)
 
 # Insert all rows from the DataFrame into the 'users' table (or your table name)
-df.to_sql('users', engine, if_exists='append', index=False)
+df.to_sql('data', engine, if_exists='append', index=False)
 
 print("Data inserted successfully.")
